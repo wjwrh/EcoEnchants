@@ -110,7 +110,7 @@ public class EnchantDisplay extends DisplayModule {
         List<String> lore = new ArrayList<>();
         List<String> requirementLore = new ArrayList<>();
 
-        LinkedHashMap<Enchantment, Integer> enchantments = new LinkedHashMap<>(fastItemStack.getEnchantmentsOnItem(true));
+        LinkedHashMap<Enchantment, Integer> enchantments = new LinkedHashMap<>(fastItemStack.getEnchants(true));
 
         enchantments.entrySet().removeIf(enchantmentIntegerEntry -> enchantmentIntegerEntry.getValue().equals(0));
 
@@ -207,12 +207,6 @@ public class EnchantDisplay extends DisplayModule {
                 return;
             }
         }
-
-        FastItemStack fast = FastItemStack.wrap(itemStack);
-
-        List<String> lore = fast.getLore();
-        lore.removeIf(s -> s.startsWith("§w"));
-        fast.setLore(lore);
 
         ItemMeta meta = itemStack.getItemMeta();
 

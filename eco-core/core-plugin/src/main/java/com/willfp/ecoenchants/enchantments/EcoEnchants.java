@@ -3,6 +3,7 @@ package com.willfp.ecoenchants.enchantments;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableList;
+import com.willfp.eco.core.config.interfaces.Config;
 import com.willfp.eco.core.config.updating.ConfigUpdater;
 import com.willfp.eco.core.fast.FastItemStack;
 import com.willfp.ecoenchants.EcoEnchantsPlugin;
@@ -246,6 +247,8 @@ import com.willfp.ecoenchants.enchantments.ecoenchants.spell.Quake;
 import com.willfp.ecoenchants.enchantments.ecoenchants.spell.Vitalize;
 import com.willfp.ecoenchants.enchantments.meta.EnchantmentType;
 import com.willfp.ecoenchants.enchantments.support.vanilla.VanillaEnchantments;
+import com.willfp.ecoenchants.integrations.registration.RegistrationManager;
+import com.willfp.libreforge.chains.EffectChains;
 import lombok.experimental.UtilityClass;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -552,7 +555,7 @@ public class EcoEnchants {
      */
     public static boolean hasAnyOfType(@NotNull final ItemStack item,
                                        @NotNull final EnchantmentType type) {
-        return FastItemStack.wrap(item).getEnchantmentsOnItem(true).keySet()
+        return FastItemStack.wrap(item).getEnchants(true).keySet()
                 .stream()
                 .filter(enchantment -> enchantment instanceof EcoEnchant)
                 .map(enchantment -> (EcoEnchant) enchantment)
@@ -566,6 +569,10 @@ public class EcoEnchants {
      */
     @ConfigUpdater
     public static void update(@NotNull final EcoEnchantsPlugin plugin) {
+        for (Config config : plugin.getCustomEnchantsYml().getSubsections("chains")) {
+            EffectChains.compile(config, "Custom Enchant Chains");
+        }
+
         CustomEcoEnchants.update(plugin);
 
         for (EcoEnchant ecoEnchant : new HashSet<>(values())) {
@@ -573,6 +580,7 @@ public class EcoEnchants {
         }
 
         VanillaEnchantments.update(plugin);
+        RegistrationManager.registerEnchantments();
     }
 
     /**

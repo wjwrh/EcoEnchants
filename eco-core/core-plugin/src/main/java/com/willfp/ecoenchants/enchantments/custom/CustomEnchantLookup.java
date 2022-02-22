@@ -20,7 +20,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.WeakHashMap;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class CustomEnchantLookup {
     /**
@@ -108,8 +107,7 @@ public class CustomEnchantLookup {
 
                 if (slot != EnchantmentTarget.Slot.ANY) {
                     if (!enchant.getTargets().stream()
-                            .map(EnchantmentTarget::getSlot)
-                            .collect(Collectors.toList())
+                            .map(EnchantmentTarget::getSlot).toList()
                             .contains(slot)) {
                         continue;
                     }

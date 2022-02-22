@@ -1,7 +1,7 @@
 name: EcoEnchants
 version: ${projectVersion}
 main: com.willfp.ecoenchants.EcoEnchantsPlugin
-api-version: 1.16
+api-version: 1.17
 authors: [ Auxilor ]
 website: willfp.com
 load: STARTUP
@@ -16,8 +16,10 @@ softdepend:
   - mcMMO
   - Jobs
   - Vault
-libraries:
-  - 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
+  - CMI
+  - CMILib
+  - DeluxeSellwands
+  - ShopGUIPlus
 
 commands:
   enchantinfo:

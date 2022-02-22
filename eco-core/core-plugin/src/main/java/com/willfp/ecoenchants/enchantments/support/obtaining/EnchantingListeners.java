@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -126,7 +127,7 @@ public class EnchantingListeners extends PluginDependent<EcoPlugin> implements L
             multiplier /= this.getPlugin().getConfigYml().getDouble("enchanting-table.reduce-probability.factor");
         }
 
-        ArrayList<EcoEnchant> enchantments = new ArrayList<>(EcoEnchants.values());
+        List<EcoEnchant> enchantments = new ArrayList<>(EcoEnchants.values());
         Collections.shuffle(enchantments); // Prevent list bias towards early enchantments like telekinesis
 
         boolean gotSpecial = false;
